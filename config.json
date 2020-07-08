@@ -1,0 +1,11 @@
+{
+  "server":{
+      "host":"localhost",
+      "port": 6006
+  },
+    "redis":{
+        "host":"localhost",
+        "port": 6379
+        "db":0
+  }
+}
