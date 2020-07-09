@@ -1,6 +1,7 @@
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 import utils as utils
+import trans as trans
 from rio import Rio
 
 config = utils.get_config_dict()
@@ -9,11 +10,12 @@ rio = Rio(config)
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/<mp-id>/<struct>/<idx>/state.html', methods=['GET'])
-def state():
+@app.route('/<mp_id>/<struct>/<idx>/state.html', methods=['GET'])
+def state(mp_id, struct, idx):
     app.logger.debug('hit state.html')
-
-    return "nil"
+    
+    
+    return trans.state(rio, mp_id, struct, idx)
 
 @app.route('/js/<fn>', methods=['GET'])
 def js_folder(fn):
