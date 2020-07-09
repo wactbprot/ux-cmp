@@ -21,6 +21,8 @@ class Rio:
         logging.info('make pubsub')
         self.pubsub = self.srv.pubsub()
 
-
     def get_keys(self, pat):
         return self.srv.keys(pat)
+
+    def get_val(self, k):
+        return self.srv.get(k)
