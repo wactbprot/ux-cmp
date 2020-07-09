@@ -3,7 +3,9 @@ def state(rio, mp_id, struct, idx):
     state_keys = rio.get_keys("{}@{}@{}@state@*".format( mp_id, struct, idx))
     if not state_keys:
         return "404"
+
+    s = ""
     for state_key in state_keys:
-        print(state_key)
-    template = 'html/index.html'
-    return render_template(template, keys=state_keys)
+        s = s + state_key
+
+    return s
