@@ -5,8 +5,8 @@ import utils
 logging.basicConfig(level=logging.DEBUG)
 
 class Rio:
-    def __init__(self):
-        r = utils.get_config_dict().get('redis')
+    def __init__(self, config):
+        r = config.get('redis')
         self.host = r.get('host')
         self.port = r.get("port")
         self.db = r.get("db")

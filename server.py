@@ -1,12 +1,16 @@
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 import utils as utils
+from rio import Rio
 
+config = utils.get_config_dict()
+
+rio = Rio(config)
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/<mp-id>/container/<idx>/state.html', methods=['GET'])
-def validation():
+@app.route('/<mp-id>/<struct>/<idx>/state.html', methods=['GET'])
+def state():
     app.logger.debug('hit state.html')
 
     return "nil"
@@ -28,7 +32,7 @@ def logo_folder(fn):
 
 if __name__ == '__main__':
 
-    srv = utils.get_config_dict().get("server")
+    srv = config.get("server")
     host = srv.get("host")
     port = srv.get("port")
 
