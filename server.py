@@ -18,8 +18,8 @@ def state(mp_id, struct, idx):
     upper_page = render_template('html/upper.html')
     lower_page = render_template('html/lower.html')
 
-    content = trans.state(rio, mp_id, struct, idx)
-
+    content = trans.state_html(rio, mp_id, struct, idx)
+    print(content)
     return "{}{}{}".format(upper_page, content,lower_page)
 
 @app.route('/js/<fn>', methods=['GET'])
