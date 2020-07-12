@@ -15,5 +15,6 @@ def state_html(rio, mp_id, struct, idx):
             state[j][k] = {}
 
         state[j][k] = rio.get_val(state_key)
-
-    return  ## render template --> jsonify(state)
+    
+    
+    return  render_template('html/state.html', state=state)

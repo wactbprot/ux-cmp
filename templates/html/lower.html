@@ -14,9 +14,18 @@
         </div>
       </div>
     </footer>
-    <!--
-	 <script src="../js/cardsData.js"></script>
-	 Using Vue to populate cards to reduce redundant code
-	 -->
-  </body>
+<script>
+  var socket = io();
+  socket = io('http://localhost:6006',
+              { forceNew: true});
+  socket.on('connect', function(){
+    console.log("..................");});
+
+  socket.on('state', function(data){
+    console.log(data);
+  });
+  socket.on('disconnect', function(){});
+</script>
+
+</body>
 </html>
