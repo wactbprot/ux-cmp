@@ -1,15 +1,18 @@
+<div class="column is-three-fifths">
+
 {% for seq_idx in state %}
 <div class="columns">
   {% for par_idx in state[seq_idx] %}
-  <article class="message column">
+  <article  class="message column is-info">
     <div class="message-header">
       <p>{{seq_idx}}/{{par_idx}}</p>
-      <button class="delete" aria-label="delete"></button>
     </div>
-    <div class="message-body">
-      {{state[seq_idx][par_idx]}}
+    <div id="{{state[seq_idx][par_idx]['key']}}" class="message-body">
+      {{state[seq_idx][par_idx]["value"]}}
     </div>
   </article>  
   {% endfor %}
 </div><!-- columns -->
 {% endfor %}
+
+</div>

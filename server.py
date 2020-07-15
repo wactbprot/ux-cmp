@@ -2,12 +2,12 @@ from flask import Flask, request, send_from_directory, render_template
 from flask_socketio import SocketIO, send, emit
 from flask_cors import CORS
 
-import utils as utils
+import utils as u
 import trans as trans
 from rio import Rio
 
 
-config = utils.get_config_dict()
+config = u.get_config_dict()
 
 rio = Rio(config)
 app = Flask(__name__)
@@ -18,8 +18,12 @@ CORS(app)
 @app.route('/<mp_id>/<struct>/<idx>/state.html', methods=['GET'])
 def state(mp_id, struct, idx):
     app.logger.debug('hit state.html')
+    c = trans.container(rio, mp_id)
+    d = trans.definitions(rio, mp_id)
 
-    upper_page = render_template('html/upper.html')
+    upper_page = render_template('html/upper.html',
+                                 container=c,
+                                 definitions=d)
     lower_page = render_template('html/lower.html')
 
     content = trans.state_html(rio, mp_id, struct, idx)
@@ -41,17 +45,18 @@ def logo_folder(fn):
     app.logger.debug('hit logo folder')
     return send_from_directory('static/img', fn)
 
-
 @socketio.on('connect')
 def connect_web():
-    rio.subscribe("*", lambda msg: socketio.emit("state", msg))
-    print('[INFO] Web client connected: {}'.format(request.sid))
+    rio.subscribe("*",
+                  lambda x: socketio.emit(u.extr_ch(x),
+                                             {"key":u.client_key(u.extr_key(x)),
+                                              "value":rio.get_val(u.extr_key(x))}))
 
+    app.logger.debug('Web client connected: {}'.format(request.sid))
 
 @socketio.on('disconnect')
 def disconnect_web():
-    print('[INFO] Web client disconnected: {}'.format(request.sid))
-
+    app.logger.debug('Web client disconnected: {}'.format(request.sid))
 
 if __name__ == '__main__':
 

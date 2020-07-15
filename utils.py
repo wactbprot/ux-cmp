@@ -27,3 +27,20 @@ def parse_key(k):
         return v[0], v[1], v[2], v[3], v[4], None
     if n == 6:
         return v[0], v[1], v[2], v[3], v[4], v[5]
+
+def client_key(k):
+    return k.replace("@", "_")
+
+def extr_key(item):
+
+    return item.get("channel", ":").split(":")[1]
+
+def extr_ch(item):
+    # 'channel': '__keyspace@0__:ref@container@0@state@0@0'    
+    k = extr_key(item)
+    
+    if len(k) < 2:
+        return "trash"
+    else:
+        _,_,_,func,_,_, = parse_key(k)
+        return func

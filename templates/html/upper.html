@@ -5,22 +5,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cards List - Bulma Templates</title>
+    <title>UX-CMP</title>
     <link rel="stylesheet" href="/css/bulma.css" />
     <script src="/js/socket.io.js"></script>
+    <script src="/js/jquery-3.5.1.min.js"></script>
   </head>
 
   <body>
-
-    <!-- START NAV -->
     <nav class="navbar">
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item" href="#">
             Logo
           </a>
+          <span id="conn">connecting ... </span>
           <span class="navbar-burger burger" data-target="navbarMenu">
-            <span></span>
+           
             <span></span>
             <span></span>
           </span>
@@ -49,5 +49,36 @@
         </div>
       </div>
     </nav>
-    <!-- END NAV -->
     <div class="container">
+      <div class="columns">
+        <div class="column is-one-fifth">
+          
+          <nav class="panel is-info">
+            <p class="panel-heading">
+              Container
+            </p>
+            {% for cont in container %}
+            <a class="panel-block is-active" href={{cont["link"]}}>
+              <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+              </span>
+              {{cont["value"]}}
+            </a>
+            {% endfor %}
+          </nav>
+          
+          <nav class="panel is-info">
+            <p class="panel-heading">
+              Definitions
+            </p>
+            {% for defin in definitions %}
+            <a class="panel-block is-active">
+              <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+              </span>
+              {{defin["value"]}}
+            </a>
+            {% endfor %}
+          </nav>
+        </div>
+        
