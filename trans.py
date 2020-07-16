@@ -22,23 +22,26 @@ def state_html(rio, mp_id, struct, idx):
 
 
 def container(rio, mp_id):
-    ks = rio.get_keys("{}@container@*@title".format(mp_id))
+    s = "{}@container@{}@{}"
+    ks = rio.get_keys(s.format(mp_id, "*", "title"))
     ret = []
-    for k in reversed(ks):
+    for k in sorted(ks):
         _, _, idx, _, _, _ = utils.parse_key(k)
-        ret.append({"key":utils.client_key(k),
+        ret.append({"value_key": utils.client_key(k),
+                    "ctrl_key": utils.client_key(s.format(mp_id, idx, "ctrl")),
                     "value":rio.get_val(k),
                     "idx": idx,
                     "link":"/{}/container/{}/state.html".format(mp_id, idx)})
-        
     return ret
 
 def definitions(rio, mp_id):
-    ks = rio.get_keys("{}@definitions@*@descr".format(mp_id))
+    s = "{}@definitions@{}@{}"
+    ks = rio.get_keys(s.format(mp_id, "*","descr" ))
     ret = []
-    for k in reversed(ks):
+    for k in sorted(ks):
         _, _, idx, _, _, _ = utils.parse_key(k)
-        ret.append({"key":utils.client_key(k),
+        ret.append({"value_key":utils.client_key(k),
+                    "ctrl_key": utils.client_key(s.format(mp_id, idx, "ctrl")),
                     "value":rio.get_val(k),
                     "idx": idx,
                     "link":"/{}/definitions/{}/state.html".format(mp_id, idx)})

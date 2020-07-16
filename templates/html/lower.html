@@ -27,6 +27,7 @@
     $conn.removeClass("is-light is-warning");
     $conn.addClass("is-success"); 
   });
+
   socket.on('disconnect', function(){
     $conn = $("#conn"); 
     $conn.text("disconnected");
@@ -34,11 +35,20 @@
     $conn.addClass("is-warning");
 
   });
+  
   socket.on('state', function(data){
-    $e = $("#"+data["key"]); 
-    $e.text(data["value"]);
-    
+    $e = $("#" + data["key"]); 
+    $e.text(data["value"]);  
   });
+  
+  socket.on('ctrl', function(data){
+    console.log(data["ctrl_key"])
+    console.log(data["value"])
+
+    $e = $("#" + data["ctrl_key"]); 
+    $e.addClass(data["value"]);  
+  });
+
 </script>
 
 </body>

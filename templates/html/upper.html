@@ -61,7 +61,8 @@
               <span class="panel-icon">
                 <i class="fas fa-book" aria-hidden="true"></i>
               </span>
-              {{cont["value"]}}
+              <span id='{{cont["ctrl_key"]}}'>{{cont["idx"]}}</span>
+              <span id='{{cont["value_key"]}}'>{{cont["value"]}}</span> 
             </a>
             {% endfor %}
           </nav>
@@ -75,7 +76,8 @@
               <span class="panel-icon">
                 <i class="fas fa-book" aria-hidden="true"></i>
               </span>
-              {{defin["value"]}}
+              <span id='{{defin["ctrl_key"]}}'>{{defin["idx"]}}</span>
+              <span id='{{defin["value_key"]}}'>{{defin["value"]}}</span> 
             </a>
             {% endfor %}
           </nav>
