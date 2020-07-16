@@ -25,7 +25,6 @@ def state(mp_id, struct, idx):
                                  container=c,
                                  definitions=d)
     lower_page = render_template('html/lower.html')
-
     content = trans.state_html(rio, mp_id, struct, idx)
     
     return "{}{}{}".format(upper_page, content,lower_page)

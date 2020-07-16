@@ -22,21 +22,25 @@ def state_html(rio, mp_id, struct, idx):
 
 
 def container(rio, mp_id):
-    ks = rio.get_keys("{}@container@*@title".format( mp_id))
+    ks = rio.get_keys("{}@container@*@title".format(mp_id))
     ret = []
-    for k in ks:
-        mp_id, _, idx, _, _, _ = utils.parse_key(k)
+    for k in reversed(ks):
+        _, _, idx, _, _, _ = utils.parse_key(k)
         ret.append({"key":utils.client_key(k),
                     "value":rio.get_val(k),
+                    "idx": idx,
                     "link":"/{}/container/{}/state.html".format(mp_id, idx)})
         
     return ret
 
 def definitions(rio, mp_id):
-    ks = rio.get_keys("{}@definitions@*@descr".format( mp_id))
+    ks = rio.get_keys("{}@definitions@*@descr".format(mp_id))
     ret = []
-    for k in ks:
+    for k in reversed(ks):
+        _, _, idx, _, _, _ = utils.parse_key(k)
         ret.append({"key":utils.client_key(k),
-                     "value":rio.get_val(k)})
+                    "value":rio.get_val(k),
+                    "idx": idx,
+                    "link":"/{}/definitions/{}/state.html".format(mp_id, idx)})
         
     return ret
