@@ -1,6 +1,5 @@
 import json
-
-
+import time
 
 def get_config_dict():
     with open('./config.json') as json_config_file:
@@ -32,15 +31,34 @@ def client_key(k):
     return k.replace("@", "_")
 
 def extr_key(item):
-
-    return item.get("channel", ":").split(":")[1]
+    ch = item. get("channel", "")
+    if ":" in ch:
+        return ch.split(":")[1]
+    else:
+        return "trash"
 
 def extr_ch(item):
-    # 'channel': '__keyspace@0__:ref@container@0@state@0@0'    
-    k = extr_key(item)
-    
-    if len(k) < 2:
-        return "trash"
-    else:
+    k = extr_key(item)    
+    if len(k) > 2:
         _,_,_,func,_,_, = parse_key(k)
         return func
+
+def val_to_class(v):
+    t = {"ready": "is-success",
+         "error": "is-danger",
+         "run": "is-info",
+         "mon": "is-info",
+         "void":"is-info"}
+    
+    return t.get(v, "is-danger is-light")
+
+def gen_callback(s,r):
+    def callback(x):
+        ch = extr_ch(x)
+        k = extr_key(x)
+        if ch and k:
+            s.emit(ch, {"key":client_key(k),
+                        "value":r.get_val(k)})
+        time.sleep(0.01)
+            
+    return callback

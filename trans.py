@@ -27,8 +27,10 @@ def container(rio, mp_id):
     ret = []
     for k in sorted(ks):
         _, _, idx, _, _, _ = utils.parse_key(k)
+        ctrl_key = s.format(mp_id, idx, "ctrl")
         ret.append({"value_key": utils.client_key(k),
-                    "ctrl_key": utils.client_key(s.format(mp_id, idx, "ctrl")),
+                    "ctrl_key": utils.client_key(ctrl_key),
+                    "ctrl_value": utils.val_to_class(rio.get_val(ctrl_key)),
                     "value":rio.get_val(k),
                     "idx": idx,
                     "link":"/{}/container/{}/state.html".format(mp_id, idx)})
@@ -40,8 +42,10 @@ def definitions(rio, mp_id):
     ret = []
     for k in sorted(ks):
         _, _, idx, _, _, _ = utils.parse_key(k)
+        ctrl_key = s.format(mp_id, idx, "ctrl")
         ret.append({"value_key":utils.client_key(k),
-                    "ctrl_key": utils.client_key(s.format(mp_id, idx, "ctrl")),
+                    "ctrl_key": utils.client_key(ctrl_key),
+                    "ctrl_value": utils.val_to_class(rio.get_val(ctrl_key)),
                     "value":rio.get_val(k),
                     "idx": idx,
                     "link":"/{}/definitions/{}/state.html".format(mp_id, idx)})

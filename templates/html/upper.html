@@ -52,32 +52,34 @@
       <div class="columns">
         <div class="column is-one-fifth">
           
-          <nav class="panel is-info">
+          <nav class="panel is-light">
             <p class="panel-heading">
               Container
             </p>
             {% for cont in container %}
-            <a class="panel-block is-active" href={{cont["link"]}}>
-              <span class="panel-icon">
-                <i class="fas fa-book" aria-hidden="true"></i>
-              </span>
-              <span id='{{cont["ctrl_key"]}}'>{{cont["idx"]}}</span>
-              <span id='{{cont["value_key"]}}'>{{cont["value"]}}</span> 
+            <a class="panel-block" href={{cont["link"]}}>
+              <div class="control">
+                <div class="tags has-addons">
+                  <span class="tag is-dark">{{cont["idx"]}}</span>
+                  <span id='{{cont["ctrl_key"]}}' class="tag {{cont['ctrl_value']}}">{{cont["value"]}}</span>
+                </div>
+              </div> 
             </a>
             {% endfor %}
           </nav>
           
-          <nav class="panel is-info">
+          <nav class="panel is-light">
             <p class="panel-heading">
               Definitions
             </p>
             {% for defin in definitions %}
-            <a class="panel-block is-active">
-              <span class="panel-icon">
-                <i class="fas fa-book" aria-hidden="true"></i>
-              </span>
-              <span id='{{defin["ctrl_key"]}}'>{{defin["idx"]}}</span>
-              <span id='{{defin["value_key"]}}'>{{defin["value"]}}</span> 
+            <a class="panel-block" href={{defin["link"]}}>
+              <div class="control">
+                <div class="tags has-addons">
+                  <span class="tag is-dark">{{defin["idx"]}}</span>
+                  <span id='{{defin["ctrl_key"]}}' class="tag {{defin['ctrl_value']}}">{{defin["value"]}}</span>
+                </div>
+              </div> 
             </a>
             {% endfor %}
           </nav>

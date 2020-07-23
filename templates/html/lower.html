@@ -18,8 +18,12 @@
     </footer>
 <script>
   var socket = io();
-  socket = io('http://localhost:6006',
-              { forceNew: true});
+  var val_to_class = {"ready": "is-success",
+                      "error": "is-danger",
+                      "run": "is-info",
+                      "mon": "is-info"}
+  
+  socket = io('http://localhost:6006', { 'forceNew': true });
   
   socket.on('connect', function(){
     $conn = $("#conn"); 
@@ -34,6 +38,7 @@
     $conn.removeClass("is-light is-success");
     $conn.addClass("is-warning");
 
+    socket.socket.reconnect();
   });
   
   socket.on('state', function(data){
@@ -42,11 +47,15 @@
   });
   
   socket.on('ctrl', function(data){
-    console.log(data["ctrl_key"])
-    console.log(data["value"])
+    
+    $e = $("#" + data["key"]);
+    val = data["value"];
+    console.log("#" + data["key"]);
+    console.log(val);
+    $e.removeClass()
+    $e.addClass("tag is-dark")
+    $e.addClass(val_to_class[val]);
 
-    $e = $("#" + data["ctrl_key"]); 
-    $e.addClass(data["value"]);  
   });
 
 </script>

@@ -6,7 +6,6 @@ import utils as u
 import trans as trans
 from rio import Rio
 
-
 config = u.get_config_dict()
 
 rio = Rio(config)
@@ -46,21 +45,19 @@ def logo_folder(fn):
 
 @socketio.on('connect')
 def connect_web():
-    rio.subscribe("*",
-                  lambda x: socketio.emit(u.extr_ch(x),
-                                             {"key":u.client_key(u.extr_key(x)),
-                                              "value":rio.get_val(u.extr_key(x))}))
-
+    callback = u.gen_callback(socketio, rio)
+    rio.subscribe("*", callback)
+    
     app.logger.debug('Web client connected: {}'.format(request.sid))
 
 @socketio.on('disconnect')
 def disconnect_web():
     app.logger.debug('Web client disconnected: {}'.format(request.sid))
-
+    
 if __name__ == '__main__':
 
     srv = config.get("server")
     host = srv.get("host")
     port = srv.get("port")
 
-    socketio.run(app=app, host=host, port=port)
+    socketio.run(app=app, host=host, port=port, debug=True)
