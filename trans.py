@@ -20,6 +20,13 @@ def state_html(rio, mp_id, struct, idx):
     
     return  render_template('html/state.html', state=state)
 
+def title(rio, mp_id, struct, idx):
+    s = "{}@{}@{}@{}"
+    if struct == "container":
+        h = rio.get_val(s.format(mp_id, struct, idx, "title"))
+        d = rio.get_val(s.format(mp_id, struct, idx, "descr"))
+
+    return {"head":h,"sub":d}
 
 def container(rio, mp_id):
     s = "{}@container@{}@{}"

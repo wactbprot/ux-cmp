@@ -19,10 +19,11 @@ def state(mp_id, struct, idx):
     app.logger.debug('hit state.html')
     c = trans.container(rio, mp_id)
     d = trans.definitions(rio, mp_id)
-
+    t = trans.title(rio, mp_id, struct, idx)
     upper_page = render_template('html/upper.html',
                                  container=c,
-                                 definitions=d)
+                                 definitions=d,
+                                 title=t)
     lower_page = render_template('html/lower.html')
     content = trans.state_html(rio, mp_id, struct, idx)
     

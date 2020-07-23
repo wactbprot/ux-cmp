@@ -59,6 +59,6 @@ def gen_callback(s,r):
         if ch and k:
             s.emit(ch, {"key":client_key(k),
                         "value":r.get_val(k)})
-        time.sleep(0.01)
+        time.sleep(0.05)
             
     return callback
