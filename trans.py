@@ -22,10 +22,15 @@ def state_html(rio, mp_id, struct, idx):
 
 def title(rio, mp_id, struct, idx):
     s = "{}@{}@{}@{}"
+    h = ""
+    d = ""
     if struct == "container":
-        h = rio.get_val(s.format(mp_id, struct, idx, "title"))
+        h = "container {}: {}".format(idx,rio.get_val(s.format(mp_id, struct, idx, "title")))
         d = rio.get_val(s.format(mp_id, struct, idx, "descr"))
-
+    if struct == "definitions":
+        h = "definition class: {}".format(rio.get_val(s.format(mp_id, struct, idx, "class")))
+        d = rio.get_val(s.format(mp_id, struct, idx, "descr"))
+        
     return {"head":h,"sub":d}
 
 def container(rio, mp_id):
@@ -40,7 +45,7 @@ def container(rio, mp_id):
                     "ctrl_value": utils.val_to_class(rio.get_val(ctrl_key)),
                     "value":rio.get_val(k),
                     "idx": idx,
-                    "link":"/{}/container/{}/state.html".format(mp_id, idx)})
+                    "link":"/{}/container/{}".format(mp_id, idx)})
     return ret
 
 def definitions(rio, mp_id):
@@ -55,6 +60,6 @@ def definitions(rio, mp_id):
                     "ctrl_value": utils.val_to_class(rio.get_val(ctrl_key)),
                     "value":rio.get_val(k),
                     "idx": idx,
-                    "link":"/{}/definitions/{}/state.html".format(mp_id, idx)})
+                    "link":"/{}/definitions/{}".format(mp_id, idx)})
         
     return ret

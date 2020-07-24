@@ -14,7 +14,7 @@ socketio = SocketIO(app)
 
 CORS(app)
 
-@app.route('/<mp_id>/<struct>/<idx>/state.html', methods=['GET'])
+@app.route('/<mp_id>/<struct>/<idx>', methods=['GET'])
 def state(mp_id, struct, idx):
     app.logger.debug('hit state.html')
     c = trans.container(rio, mp_id)

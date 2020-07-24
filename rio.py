@@ -21,7 +21,7 @@ class Rio:
     def subscribe(self, pat, callback): 
         logging.info('subscribe *')
         self.p.psubscribe(**{pat: callback})
-        self.thread = self.p.run_in_thread(sleep_time=0.1)
+        self.thread = self.p.run_in_thread(sleep_time=0.001)
         
     def get_keys(self, pat):
         return self.srv.keys(pat)
