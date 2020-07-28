@@ -24,7 +24,8 @@ class Rio:
         self.thread = self.p.run_in_thread(sleep_time=0.001)
         
     def get_keys(self, pat):
-        return self.srv.keys(pat)
+        ks = self.srv.keys(pat)
+        return sorted(ks)
 
     def get_val(self, k):
         return self.srv.get(k)

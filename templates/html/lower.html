@@ -17,44 +17,52 @@
       </div>
     </footer>
 <script>
-  var socket = io();
+  var socket = io('http://localhost:6006');//, { 'forceNew': true });
+  
   var val_to_class = {"ready": "is-success",
                       "error": "is-danger",
                       "run": "is-info",
                       "mon": "is-info"}
+
+  socket.on('connect_timeout', function(){
+    $conn = $("#conn"); 
+    $conn.text("disconnected");
+    $conn.removeClass("is-light is-success");
+    $conn.addClass("is-warning");
+    console.log("conn timeout")
+
+    socket.io.reconnect();
+  });
   
-  var socket = io('http://localhost:6006');//, { 'forceNew': true });
+  socket.on('disconnect', function(){
+    $conn = $("#conn"); 
+    $conn.text("disconnected");
+    $conn.removeClass("is-light is-success");
+    $conn.addClass("is-warning");
+      
+    socket.io.reconnect();
+  });
   
   socket.on('connect', function(){
     $conn = $("#conn"); 
     $("#conn").text("connected");
     $conn.removeClass("is-light is-warning");
     $conn.addClass("is-success"); 
-
-    socket.on('disconnect', function(){
-      $conn = $("#conn"); 
-      $conn.text("disconnected");
-      $conn.removeClass("is-light is-success");
-      $conn.addClass("is-warning");
-      
-      socket.socket.reconnect();
-    });
-   
-    socket.on('state', function(data){
-      $e = $("#" + data["key"]); 
-      $e.text(data["value"]);  
-    });
-    
-    socket.on('ctrl', function(data){
-      $e = $("#" + data["key"]);
-      val = data["value"];
-      console.log("#" + data["key"]);
-      console.log(val);
-      $e.removeClass()
-      $e.addClass("tag is-dark")
-      $e.addClass(val_to_class[val]);
-    });
   });
+  
+  socket.on('state', function(data){
+    $e = $("#" + data["key"]); 
+    $e.text(data["value"]);  
+  });
+  
+  socket.on('ctrl', function(data){
+    $e = $("#" + data["key"]);
+    val = data["value"];
+    $e.removeClass()
+    $e.addClass("tag is-dark")
+    $e.addClass(val_to_class[val]);
+  });
+
 </script>
 
 </body>

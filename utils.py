@@ -54,6 +54,7 @@ def val_to_class(v):
 
 def gen_callback(s,r):
     def callback(x):
+        s.sleep(0)
         ch = extr_ch(x)
         k = extr_key(x)
         if ch and k:
