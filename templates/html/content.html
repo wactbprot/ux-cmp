@@ -2,7 +2,7 @@
   {% for seq_idx in state %}
   <div class="columns">
     {% for par_idx in state[seq_idx] %}
-    <div  id="{{state[seq_idx][par_idx]['key']}}" class="notification {{state[seq_idx][par_idx]["value"]}}">
+    <div  id="{{state[seq_idx][par_idx]['key']}}" class="notification is-light {{state[seq_idx][par_idx]['value']}}">
       <h3>{{seq_idx}}/{{par_idx}}</h3>
       {{state[seq_idx][par_idx]["value"]}}
     </div>
