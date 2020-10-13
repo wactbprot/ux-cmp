@@ -1,24 +1,31 @@
 from flask import render_template
 import utils
 
-def state_html(rio, mp_id, struct, idx):
+def build_val_dict(rio, ks)
+    val ={}
+    for key in keys:
+        _, _, _, _, j, k = utils.parse_key(key)
+        if not val.get(j):
+            val[j] = {}
+        if not state.get(j).get(k):
+            val[j][k] = {}
+
+        val[j][k]["key"] = utils.client_key(key)
+        val[j][k]["value"] = rio.get_val(key)
+
+    return val
+
+def content_html(rio, mp_id, struct, idx):
     state_keys = rio.get_keys("{}@{}@{}@state@*".format( mp_id, struct, idx))
+    definition_keys = rio.get_keys("{}@{}@{}@definition@*".format( mp_id, struct, idx))
+
     if not state_keys:
         return "404"
 
-    state = {}
-    for state_key in state_keys:
-        _, _, _, _, j, k = utils.parse_key(state_key)
-        if not state.get(j):
-            state[j] = {}
-        if not state.get(j).get(k):
-            state[j][k] = {}
+    state = build_val_dict(rio, state_keys)
+    definition = build_val_dict(rio, definition_keys)
 
-        state[j][k]["key"] = utils.client_key(state_key)
-        state[j][k]["value"] = rio.get_val(state_key)
-    
-    
-    return  render_template('html/state.html', state=state)
+    return  render_template('html/content.html', state=state, definition=definition)
 
 def title(rio, mp_id, struct, idx):
     s = "{}@{}@{}@{}"
@@ -30,7 +37,7 @@ def title(rio, mp_id, struct, idx):
     if struct == "definitions":
         h = "definition class: {}".format(rio.get_val(s.format(mp_id, struct, idx, "class")))
         d = rio.get_val(s.format(mp_id, struct, idx, "descr"))
-        
+
     return {"head":h,"sub":d}
 
 def container(rio, mp_id):
@@ -61,5 +68,5 @@ def definitions(rio, mp_id):
                     "value":rio.get_val(k),
                     "idx": idx,
                     "link":"/{}/definitions/{}".format(mp_id, idx)})
-        
+
     return ret

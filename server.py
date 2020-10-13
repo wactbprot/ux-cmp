@@ -20,14 +20,18 @@ def state(mp_id, struct, idx):
     c = trans.container(rio, mp_id)
     d = trans.definitions(rio, mp_id)
     t = trans.title(rio, mp_id, struct, idx)
+
     upper_page = render_template('html/upper.html',
                                  container=c,
                                  definitions=d,
                                  title=t)
-    lower_page = render_template('html/lower.html')
-    content = trans.state_html(rio, mp_id, struct, idx)
-    
-    return "{}{}{}".format(upper_page, content,lower_page)
+    lower_page = render_template('html/lower.html',
+                                 container=c,
+                                 definitions=d,
+                                 title=t)
+    content = trans.content_html(rio, mp_id, struct, idx)
+
+    return "{}{}{}".format(upper_page, content, lower_page)
 
 @app.route('/js/<fn>', methods=['GET'])
 def js_folder(fn):
@@ -48,13 +52,13 @@ def logo_folder(fn):
 def connect_web():
     callback = u.gen_callback(socketio, rio)
     rio.subscribe("*", callback)
-    
+
     app.logger.debug('Web client connected: {}'.format(request.sid))
 
 @socketio.on('disconnect')
 def disconnect_web():
     app.logger.debug('Web client disconnected: {}'.format(request.sid))
-    
+
 if __name__ == '__main__':
 
     srv = config.get("server")
