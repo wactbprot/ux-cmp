@@ -27,7 +27,7 @@
             <span id="conn" class="tag is-light">connecting ...</span>
           </a>
           <span class="navbar-burger burger" data-target="navbarMenu">
-           
+
             <span></span>
             <span></span>
           </span>
@@ -59,8 +59,8 @@
     <div class="container">
       <div class="columns">
         <div class="column is-one-fifth">
-          
-          <nav class="panel is-light">
+
+          <nav class="panel is-dark">
             <p class="panel-heading">
               Container
             </p>
@@ -68,15 +68,15 @@
             <a class="panel-block" href={{cont["link"]}}>
               <div class="control">
                 <div class="tags has-addons">
-                  <span class="tag is-dark">{{cont["idx"]}}</span>
+                  <span class="tag is-light">{{cont["idx"]}}</span>
                   <span id='{{cont["ctrl_key"]}}' class="tag {{cont['ctrl_value']}}">{{cont["value"]}}</span>
                 </div>
-              </div> 
+              </div>
             </a>
             {% endfor %}
           </nav>
-          
-          <nav class="panel is-light">
+
+          <nav class="panel is-dark">
             <p class="panel-heading">
               Definitions
             </p>
@@ -84,12 +84,11 @@
             <a class="panel-block" href={{defin["link"]}}>
               <div class="control">
                 <div class="tags has-addons">
-                  <span class="tag is-dark">{{defin["idx"]}}</span>
+                  <span class="tag is-light">{{defin["idx"]}}</span>
                   <span id='{{defin["ctrl_key"]}}' class="tag {{defin['ctrl_value']}}">{{defin["value"]}}</span>
                 </div>
-              </div> 
+              </div>
             </a>
             {% endfor %}
           </nav>
         </div>
-        

@@ -1,12 +1,28 @@
 <div class="column is-three-fifths">
-  {% for seq_idx in state %}
-  <div class="columns">
-    {% for par_idx in state[seq_idx] %}
-    <div  id="{{state[seq_idx][par_idx]['key']}}" class="notification is-light {{state[seq_idx][par_idx]['value']}}">
-      <h3>{{seq_idx}}/{{par_idx}}</h3>
-      {{state[seq_idx][par_idx]["value"]}}
-    </div>
-    {% endfor %}
-  </div><!-- columns -->
-  {% endfor %}
+    <nav class="panel is-light">
+      <p class="panel-heading">
+        State
+      </p>
+      {% for seq_idx in state %}
+      <div class="columns">
+        {% for par_idx in state[seq_idx] %}
+        <div class="column is-one-fifths">
+
+        <a class="panel-block" href="#">
+          <div class="control">
+            <div class="tags has-addons">
+              <span class="tag is-light">{{seq_idx}}/{{par_idx}}</span>
+              <span id="{{state[seq_idx][par_idx]['key']}}"
+                    title="{{definition[seq_idx][par_idx]['value']}}"
+                    class="tag is-light {{state[seq_idx][par_idx]['value']}}">
+                {{state[seq_idx][par_idx]["value"]}}
+              </span>
+            </div>
+          </div>
+        </a>
+        </div><!-- column -->
+        {% endfor %}
+      </div><!-- columns -->
+      {% endfor %}
+    </nav>
 </div>

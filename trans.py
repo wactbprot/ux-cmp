@@ -1,13 +1,13 @@
 from flask import render_template
 import utils
 
-def build_val_dict(rio, ks)
+def build_val_dict(rio, keys):
     val ={}
     for key in keys:
         _, _, _, _, j, k = utils.parse_key(key)
         if not val.get(j):
             val[j] = {}
-        if not state.get(j).get(k):
+        if not val.get(j).get(k):
             val[j][k] = {}
 
         val[j][k]["key"] = utils.client_key(key)

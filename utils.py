@@ -38,20 +38,21 @@ def extr_key(item):
         return "trash"
 
 def extr_ch(item):
-    k = extr_key(item)    
+    k = extr_key(item)
     if len(k) > 2:
         _,_,_,func,_,_, = parse_key(k)
         return func
 
 def val_to_class(v):
-    t = {"ready": "is-success",
+    t = {"ready": "is-success is-light",
          "error": "is-danger",
-         "run": "is-info",
-         "mon": "is-info",
-         "void":"is-info"}
-    
-    return t.get(v, "is-danger is-light")
+         "run": "is-info is-warning",
+         "mon": "is-info is-light",
+         "void":"is-info is-light"}
 
+    return t.get(v, "is-info is-light")
+
+emit_ch = ["ctrl", "state"]
 def gen_callback(s,r):
     def callback(x):
         s.sleep(0)
@@ -59,8 +60,8 @@ def gen_callback(s,r):
         k = extr_key(x)
         if ch and k:
             time.sleep(0.01)
-            s.emit(ch, {"key":client_key(k),
-                        "value":r.get_val(k)})
+            if ch in emit_ch: #reduce trafic
+                s.emit(ch, {"key":client_key(k), "value":r.get_val(k)})
         time.sleep(0.001)
-            
+
     return callback
