@@ -11,11 +11,11 @@
         <a class="panel-block" href="#">
           <div class="control">
             <div class="tags has-addons">
-              <span class="tag is-light">{{seq_idx}}/{{par_idx}}</span>
+              <span class="tag is-light"><b>{{seq_idx}}/{{par_idx}}</b></span>
               <span id="{{state[seq_idx][par_idx]['key']}}"
                     title="{{definition[seq_idx][par_idx]['value']}}"
                     class="tag is-light {{state[seq_idx][par_idx]['value']}}">
-                {{state[seq_idx][par_idx]["value"]}}
+                {{definition[seq_idx][par_idx]["value"]["TaskName"]}}
               </span>
             </div>
           </div>

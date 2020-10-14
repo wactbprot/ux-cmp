@@ -52,16 +52,15 @@ def val_to_class(v):
 
     return t.get(v, "is-info is-light")
 
-emit_ch = ["ctrl", "state"]
-def gen_callback(s,r):
+
+def gen_callback(s, r):
     def callback(x):
         s.sleep(0)
         ch = extr_ch(x)
         k = extr_key(x)
         if ch and k:
-            time.sleep(0.01)
-            if ch in emit_ch: #reduce trafic
+            if ch in ["ctrl", "state"]: #reduce trafic
+                s.sleep(0)
                 s.emit(ch, {"key":client_key(k), "value":r.get_val(k)})
-        time.sleep(0.001)
 
     return callback

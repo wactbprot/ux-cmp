@@ -1,7 +1,8 @@
 from flask import render_template
 import utils
+import json
 
-def build_val_dict(rio, keys):
+def build_val_dict(rio, keys, parse=False):
     val ={}
     for key in keys:
         _, _, _, _, j, k = utils.parse_key(key)
@@ -11,7 +12,10 @@ def build_val_dict(rio, keys):
             val[j][k] = {}
 
         val[j][k]["key"] = utils.client_key(key)
-        val[j][k]["value"] = rio.get_val(key)
+        v = rio.get_val(key)
+        if parse:
+            v = json.loads(v)
+        val[j][k]["value"] = v
 
     return val
 
@@ -23,7 +27,7 @@ def content_html(rio, mp_id, struct, idx):
         return "404"
 
     state = build_val_dict(rio, state_keys)
-    definition = build_val_dict(rio, definition_keys)
+    definition = build_val_dict(rio, definition_keys, True)
 
     return  render_template('html/content.html', state=state, definition=definition)
 

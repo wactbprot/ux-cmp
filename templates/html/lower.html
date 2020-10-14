@@ -52,7 +52,6 @@
   socket.on('state', function(data){
   $e = $("#" + data["key"]);
   val = data["value"];
-  $e.text(val);
   $e.removeClass();
   $e.addClass("tag is-light " + val_to_class[val]);
   });
