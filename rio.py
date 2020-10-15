@@ -1,7 +1,7 @@
 import logging
 import redis
 import utils
- 
+
 logging.basicConfig(level=logging.DEBUG)
 
 class Rio:
@@ -17,12 +17,13 @@ class Rio:
         logging.info('make server')
         self.srv = redis.Redis(host=self.host, port=self.port, db=self.db, decode_responses=True)
         self.p = self.srv.pubsub()
-        
-    def subscribe(self, pat, callback): 
+
+    def subscribe(self, pat, callback):
         logging.info('subscribe *')
         self.p.psubscribe(**{pat: callback})
-        self.thread = self.p.run_in_thread(sleep_time=0.001)
-        
+        #self.thread = self.p.run_in_thread(sleep_time=0.001)
+        self.thread = self.p.run_in_thread()
+
     def get_keys(self, pat):
         ks = self.srv.keys(pat)
         return sorted(ks)
